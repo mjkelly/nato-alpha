@@ -7,8 +7,7 @@ import (
 	"net/http"
 )
 
-var mainString = `
-<!DOCTYPE html>
+var mainString = `<!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Phonetic Alphabet: {{.Phrase}}</title>
