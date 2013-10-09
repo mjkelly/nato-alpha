@@ -7,7 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
-	"strings"
+	"unicode"
 )
 
 // PhoneticAlphabet represents a particular phonetic alphabet, with
@@ -61,7 +61,7 @@ func Load(file string, name string) (*PhoneticAlphabet, error) {
 		if len(line[0]) != 1 {
 			return nil, fmt.Errorf("field %d must be a single character, found %d", 0, len(line[0]))
 		}
-		key := rune(strings.ToLower(line[0])[0])
+		key := unicode.ToLower(rune(line[0][0]))
 		alpha.Letters[key] = Translation{Name: line[1], Pronunciation: line[2]}
 	}
 	log.Printf("Loaded %d translations", len(alpha.Letters))
@@ -73,7 +73,7 @@ func Load(file string, name string) (*PhoneticAlphabet, error) {
 //
 // The rune should be the lowercase version of its letter, if applicable.
 func (pa *PhoneticAlphabet) Get(letter rune) *Translation {
-	t, found := pa.Letters[letter]
+	t, found := pa.Letters[unicode.ToLower(letter)]
 	if found {
 		return &t
 	} else {
@@ -88,11 +88,12 @@ func (pa *PhoneticAlphabet) Get(letter rune) *Translation {
 func (pa *PhoneticAlphabet) Translate(phrase string) []*Translation {
 	var t []*Translation
 	for _, letter := range phrase {
-		if trans := pa.Get(letter); trans != nil {
-			t = append(t, trans)
-		} else {
-			t = append(t, &Translation{Name: fmt.Sprintf("\"%s\"", string(letter)),
-				Pronunciation: "No translation"})
+		if !unicode.IsSpace(letter) {
+			if trans := pa.Get(letter); trans != nil {
+				t = append(t, trans)
+			} else {
+				t = append(t, &Translation{Name: fmt.Sprintf("\"%s\"", string(letter)), Pronunciation: "No translation"})
+			}
 		}
 	}
 	return t
