@@ -30,7 +30,7 @@ var mainString = `
 
 		<form method="get" action="/" class="form-inline" role="form">
 			<div class="form-group">
-				<input type="text" name="phrase" value="{{.Phrase}}" class="form-control">
+				<input type="text" name="phrase" placeholder="Enter a phrase" value="{{.Phrase}}" class="form-control">
 			</div>
 			<input type="submit" value="Translate" class="btn btn-default">
 		</form>
