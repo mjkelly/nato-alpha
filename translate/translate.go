@@ -18,23 +18,28 @@ var mainString = `
 <body>
 	<div class="container">
 		<h1>Phonetic Alphabet Translator</h1>
-		<p>
 		{{if .Phrase}}
+			<p class="lead">
 			<b>{{.Phrase}}</b> is:
 			{{range .Translation}}
 				<span title="{{.Pronunciation}}">{{.Name}}</span>
 			{{end}}
+			</p>
 		{{end}}
-		</p>
 
-		<hr>
 		<form method="get" action="/" class="form-inline" role="form">
 			<div class="form-group">
 				<input type="text" name="phrase" value="{{.Phrase}}" class="form-control">
 			</div>
 			<input type="submit" value="Translate" class="btn btn-default">
 		</form>
-		<p><small>Using <b>{{.AlphabetName}}</b> phonetic alphabet.</small></p>
+		<hr>
+		<p><small>
+			Using <b>{{.AlphabetName}}</b> phonetic alphabet.<br>
+			<a href="http://www.michaelkelly.org">Michael Kelly</a>.
+			<a href="https://github.com/mjkelly/nato-alpha">Code is on GitHub</a>.
+			Data is public domain.
+		</small></p>
 	</div>
 </body>
 </html>
