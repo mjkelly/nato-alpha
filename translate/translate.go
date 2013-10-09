@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strings"
 )
 
 var mainString = `
@@ -77,6 +78,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	} else if len(phrase_form) > 0 {
 		phrase = phrase_form[0]
 	}
+	phrase = strings.ToLower(phrase)
 
 	d := translationPage{
 		Phrase:       phrase,

@@ -70,6 +70,8 @@ func Load(file string, name string) (*PhoneticAlphabet, error) {
 
 // Get returns the translation for a single rune, or nil if there is none in
 // the receiving PhoneticAlphabet.
+//
+// The rune should be the lowercase version of its letter, if applicable.
 func (pa *PhoneticAlphabet) Get(letter rune) *Translation {
 	t, found := pa.Letters[letter]
 	if found {
