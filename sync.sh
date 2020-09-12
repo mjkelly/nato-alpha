@@ -5,7 +5,7 @@ cfg=$HOME/.aws/config
 profile=admin
 bucket=s3://nato-alpha.michaelkelly.org
 dir=www
-# cf_id=EJKWL55KLXE9D
+cf_id=EQL6RD35WKU76
 scripts=$(dirname $0)
 
 which aws || (echo "'aws' command not found. Aborting."; exit 2)
@@ -16,8 +16,8 @@ echo "Synchronizing directory $PWD/$dir"
 aws --profile="$profile" \
   s3 sync "$dir" "$bucket" \
   --acl=public-read --cache-control=max-age=3600
-# echo "Invalidating CloudFront..."
-# aws --profile=admin \
-#   cloudfront create-invalidation \
-#   --distribution-id "${cf_id}" \
-#   --paths "/*"
+echo "Invalidating CloudFront..."
+aws --profile=admin \
+  cloudfront create-invalidation \
+  --distribution-id "${cf_id}" \
+  --paths "/*"
