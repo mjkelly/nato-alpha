@@ -145,11 +145,12 @@ var translation = {
     }
 };
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    message: '',
-    phonetic: 'No message'
+var app = Vue.createApp({
+  data: function () {
+    return {
+      message: '',
+      phonetic: 'No message'
+    }
   },
   methods: {
     updateMessage: function () {
@@ -170,3 +171,5 @@ var app = new Vue({
     }
   }
 });
+
+const vm = app.mount("#app");
